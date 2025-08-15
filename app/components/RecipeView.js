@@ -1,6 +1,3 @@
-// AUTHORS: Darryl, Jasmine
-
-// RECIPE VIEW, BRIEF DETAILS, FAVE BUTTON, MORE INFO MODAL BUTTON
 import { useState } from "react";
 import CookingModal from "./CookingModal";
 import { stripHtmlTags } from "../utils/utils";

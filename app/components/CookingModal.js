@@ -1,4 +1,3 @@
-// AUTHOR : Kuo Yu Lu
 import { useState, useEffect } from 'react';
 
 //main modal component for displaying recipe details

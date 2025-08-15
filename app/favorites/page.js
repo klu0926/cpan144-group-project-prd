@@ -1,6 +1,5 @@
-// FAVORITES PAGE STUB
-// AUTHORS Lu, Clarance, Noah, Jasmine, Darryl
 "use client";
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useFavorites } from "../contexts/FavoritesContext";
@@ -14,7 +13,7 @@ export default function FavoritesPage() {
 	// FILTERING THE FAVORITES
 	const [filteredRecipes, setFilteredRecipes] = useState([]);
 
-	//  THE USER FILTERS FROM THE FORM
+	// THE USER FILTERS FROM THE FORM
 	const [activeFilters, setActiveFilters] = useState({});
 
 	// USE THE EFFECT TO SET RECIPES
@@ -157,19 +156,7 @@ export default function FavoritesPage() {
 					<div className="mb-6 flex justify-between items-center">
 						<p className="text-gray-600">
 							Showing {filteredRecipes.length} of {favorites.length} favorite recipes
-						</p>
-						{/* Clear filter button */}
-						{Object.keys(activeFilters).length > 0 && (
-							<button
-							onClick={() => {
-								setActiveFilters({});
-								setFilteredRecipes(favorites);
-							}}
-							className="text-sm text-blue-600 hover:text-blue-800 underline"
-							>
-							Clear Filters
-							</button>
-						)}
+						</p>						
 					</div>
 
 					{/* RECIPE LIST COMPONENT OF RECIPE VIEWS, WITH QUERY/FAVORITE STATE */}

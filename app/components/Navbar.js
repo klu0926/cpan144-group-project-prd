@@ -1,4 +1,3 @@
-// Kuo Yu Lu
 "use client";
 
 import Link from "next/link";

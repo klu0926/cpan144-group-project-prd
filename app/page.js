@@ -1,21 +1,15 @@
-// QUERY API PAGE
-// AUTHORS Lu, Jasmine, Clarance, Noah, Darryl
 "use client";
 
-// DEF USE STATE, EFFECT TBD
-import { useState, useEffect } from "react";
-// WIP - ADDING FAVORTIES CONTEXT
+import { useState } from "react";
+// FAVORITES CONTEXT
 import { useFavorites } from "./contexts/FavoritesContext";
 
 // IMP THE FORM QUERY COMPONENT
 import FormQuery from "./components/FormQuery";
-// NOTE - LIST STILL JUST STUB
 import RecipeList from "./components/RecipeList";
 
 export default function QueryPage() {
-	// TODO - USE THE FAVORITES CONTEXT
-
-	// THE RECIPIES, LOADING & ERROR
+	// THE RECIPES, LOADING & ERROR STATE VARS
 	const [recipes, setRecipes] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
@@ -30,15 +24,15 @@ export default function QueryPage() {
 	// FOR THE USER INPUT FORM
 	const [currentQuery, setCurrentQuery] = useState(null);
 
-	// WIP THE FAVORITES CONTEXT VALS & LOGIC
+	// THE FAVORITES CONTEXT VALS & LOGIC
 	const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
 
 	// HANDLE RECIPES SEARCH FROM FORM QUERY AND IF LOAD MORE BUTTON PRESSED
 	const searchRecipes = async (queryParams, isLoadMore = false) => {
-		// WIP - MAKING API QUERY AND FILLING PAGE STATE VARS
+		// MAKE API QUERY AND FILLING PAGE STATE VARS
 		console.log("RUNNING SEARCH RECIPES");
 
-		// WIP - SET LOADING AND RESET ERROR
+		// SET LOADING AND RESET ERROR
 		setLoading(true);
 		setError(null);
 
@@ -51,7 +45,7 @@ export default function QueryPage() {
 			console.log("ENV API_KEY[" + process.env.NEXT_PUBLIC_API_KEY + "]");
 			console.log("USING APIKEY[" + apiKey + "]");
 
-			// WIP - UPDATE THE SEARCHOFFSET FOR LOADMORE BUTTON
+			// UPDATE THE SEARCHOFFSET FOR LOADMORE BUTTON
 			const searchOffset = isLoadMore ? offset : 0;
 
 			// MAKE THE URL BASE
@@ -64,7 +58,7 @@ export default function QueryPage() {
 			var query_str = "";
 
 			// ENFORCE MAX RETURN AND CURRENT OFFSET
-			// NOTE - API DEFAULT IS SUPPOSED TO BE 10, BUT I DON'T TRUST IT
+			// NOTE - API DEFAULT IS SUPPOSED TO BE 10
 			const MAX_QUERY_NUMBER = 8;
 			queryParams.number = MAX_QUERY_NUMBER;
 			queryParams.offset = searchOffset;
@@ -90,24 +84,21 @@ export default function QueryPage() {
 			url += query_str;
 			console.log("USING URL[" + url + "]");
 
-			// NOTE BEFORE THE FETCH
+			// GET TIME BEFORE THE FETCH AWAIT
 			var startTime = Date.now();
 			console.log("[" + Date.now().toString() + "] FETCH STARTED");
 
-			// V2DO - SPINNER?
-
 			// AWAIT THE RESPONSE DIRECT, FRONTEND
-			// TODO - CHANGE TO PROPOSAL FETCH, THEN, THEN, CATCH etc...
 			const response = await fetch(url, {
 				headers: {
 					apikey: apiKey,
 				},
 			});
 
-			// DUMP THE HEADERS
+			// DEBUG - LOG THE HEADERS
 			console.log(response.headers);
 
-			// TIME
+			// DEBUG - CALC & LOG THE TIME
 			var endTime = Date.now();
 			var duration = endTime - startTime;
 			console.log("[" + Date.now().toString() + "] FETCH FINISHED IN (" + duration + "ms)");
@@ -122,7 +113,7 @@ export default function QueryPage() {
 			const query_returned_recipe_obj_arr = await response.json();
 
 			// HANDLE IF QUERY WAS FROM LOADMORE
-			// NOTE - CHANGE OF QUERY, RESETS
+			// NOTE - FORM SUBMISSION SETS isLoadMore TO FALSE TO START NEW
 			if (isLoadMore) {
 				setRecipes((prev) => [...prev, ...query_returned_recipe_obj_arr.results]);
 			} else {
@@ -133,7 +124,7 @@ export default function QueryPage() {
 			// UPDATE VALS
 			setTotalResults(query_returned_recipe_obj_arr.totalResults);
 
-			// DUMP TOTAL TO CONSOLE
+			// DEBUG - LOG TOTAL TO CONSOLE
 			console.log("TOTAL RESULTS[" + query_returned_recipe_obj_arr.totalResults + "]");
 
 			// UPDATE VIZ OF HAS MORE BUTTON
@@ -152,14 +143,14 @@ export default function QueryPage() {
 		}
 	};
 
-	// WIP - LOAD MORE BUTTON HANDLING
+	// LOAD MORE BUTTON HANDLING
 	const loadMoreRecipes = () => {
 		if (currentQuery && hasMore && !loading) {
 			searchRecipes(currentQuery, true);
 		}
 	};
 
-	// WIP - TOGGLE FAVORITES ON QUERY RESULT
+	// TOGGLE FAVORITES ON QUERY RESULT
 	const handleToggleFavorite = (recipe) => {
 		// DETERMIME IF RECIPE IS FAVORITE IF favorites context HAS ANY MATCHING ID
 		const isFavorite = favorites.some((fav) => fav.id === recipe.id);
@@ -179,20 +170,20 @@ export default function QueryPage() {
 				<h1 className="text-4xl font-bold text-gray-800 mb-2">Query for Recipes</h1>
 			</header>
 
-			{/* WIP - SEARCH FORM COMPONENT */}
+			{/* SEARCH FORM COMPONENT */}
 			<FormQuery
 				onSearch={searchRecipes}
 				loading={loading}
 			/>
 
-			{/* WIP - ERROR DISPLAY MESG */}
+			{/* ERROR DISPLAY MESG */}
 			{error && (
 				<div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
 					<strong>Error:</strong> {error}
 				</div>
 			)}
 
-			{/* WIP - RESULTS FROM API WHICH INCLUDES TOTAL ON EVERY RETURN*/}
+			{/* RESULTS FROM API WHICH INCLUDES TOTAL ON EVERY RETURN*/}
 			{totalResults > 0 && (
 				<div className="mb-6">
 					<p className="text-gray-600">
@@ -201,7 +192,7 @@ export default function QueryPage() {
 				</div>
 			)}
 
-			{/* WIP - RECIPE LIST COMPONENT */}
+			{/* RECIPE LIST COMPONENT */}
 			<RecipeList
 				recipes={recipes}
 				favorites={favorites}
@@ -209,7 +200,7 @@ export default function QueryPage() {
 				showFavoriteButton={true}
 			/>
 
-			{/* WIP - LOAD MORE BUTTON */}
+			{/* LOAD MORE BUTTON */}
 			{hasMore && (
 				<div className="text-center mt-8">
 					<button
@@ -222,7 +213,7 @@ export default function QueryPage() {
 				</div>
 			)}
 
-			{/* WIP - NO RESULTS */}
+			{/* NO RESULTS */}
 			{!loading && recipes.length === 0 && currentQuery && (
 				<div className="text-center py-12">
 					<p className="text-gray-500 text-lg">No recipes found. Try adjusting your search criteria.</p>

@@ -1,6 +1,3 @@
-// AUTHORS: Lu, Darryl
-
-// CONTEXT
 import "./contexts/FavoritesContext";
 import { FavoritesProvider } from "./contexts/FavoritesContext";
 
@@ -25,7 +22,7 @@ const geistMono = Geist_Mono({
 
 // APP META DATA
 export const metadata = {
-	title: "CPAN114 - Spoonacular API",
+	title: "CPAN144 - Spoonacular API",
 	description: "A nice little Spoonacular API APP to find new recipes, save them, and view them for cooking!",
 };
 
