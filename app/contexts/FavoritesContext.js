@@ -1,5 +1,3 @@
-// FAVORITE CONTEXT STUB
-// DARRYL LECRAW
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
@@ -49,7 +47,6 @@ export const FavoritesProvider = ({ children }) => {
 	}, [favorites, isLoading]);
 
 	// WHEN BUTTON IS CLICKED ON RECIPE NOT IN FAVORTIES
-	// WIP - LOTS OF API MATCHES, NOT ALL NEEDED, TRIM DOWN TO SCOPE/WIREFRAME
 	const addToFavorites = (recipe) => {
 		setFavorites((prevFavorites) => {
 			// HANDLE IF RECIPE IS ALREADY IN FAVORITES
@@ -108,7 +105,7 @@ export const FavoritesProvider = ({ children }) => {
 
 	// CLEAR ALL, CONVENIENCE FUNCTION
 	const clearAllFavorites = () => {
-		// EASY :D
+		// EASY WAYS ARE USUSALL THE BEST WAYS :D
 		setFavorites([]);
 	};
 
@@ -123,12 +120,12 @@ export const FavoritesProvider = ({ children }) => {
 	};
 
 	// RETURN RECIPE BY PASSED ID
-	// NOTE - ID IS THE SOLE SOURCE OF TRUTH FOR MATCHING RECIPIES IN CONTEXT
+	// NOTE - ID IS THE SOLE SOURCE OF TRUTH FOR MATCHING RECIPES IN CONTEXT
 	const getFavoriteById = (recipeId) => {
 		return favorites.find((recipe) => recipe.id === recipeId);
 	};
 
-	// RETURN RECIPES BY PASSED IDS ARRAY?
+	// RETURN RECIPES BY PASSED IDS ARRAY
 	const getFavoritesByIds = (recipeIds) => {
 		return favorites.filter((recipe) => recipeIds.includes(recipe.id));
 	};
@@ -196,9 +193,7 @@ export const FavoritesProvider = ({ children }) => {
 		getFavoriteById,
 		getFavoritesByIds,
 		searchFavorites,
-		getFavoritesStats,
-		// ???? - TBD MAYBE NOT NECESSARY, CONFIRM SPEC
-		// updateFavorite,
+		getFavoritesStats,		
 	};
 
 	return <FavoritesContext.Provider value={value}>{children}</FavoritesContext.Provider>;

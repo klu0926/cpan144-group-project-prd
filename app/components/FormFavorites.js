@@ -1,7 +1,3 @@
-// FORM FOR FILTERING THE FAVORITES
-// AUTHORS - JASMINE, CLARANCE, NOAH
-
-// IMPORT REACT LOGIC
 import { useState } from "react";
 
 export default function FormFavorites({ onFilter, totalRecipes, filteredCount }) {

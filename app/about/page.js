@@ -1,5 +1,3 @@
-// ABOUT PAGE
-// CLARANCE LEUNG
 "use client";
 
 import BioCard from "../components/BioCards";

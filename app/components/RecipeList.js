@@ -1,6 +1,3 @@
-// AUTHORS: Darryl, Jasmine
-
-// RECIPE LIST
 import RecipeView from "./RecipeView";
 
 // RECIPES FROM QUERY WITH STUB LOGIC
